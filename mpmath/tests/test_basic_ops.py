@@ -443,3 +443,41 @@ def test_isnan_etc():
     assert mp.isnpint(-1.1+0j) == False
     assert mp.isnpint(-1+0.1j) == False
     assert mp.isnpint(0+0.1j) == False
+
+def test_rand_precision():
+    """
+    Test precision of rand()
+    """
+    def get_remainder(x, bits):
+        """
+        Return ``(x % 2**-bits) * (2**bits)``.
+        If this is nonzero, we know for sure that x was generated with a resolution greater than ``bits``.
+        """
+        x = x * 2 ** bits
+        return x - int(x)
+    # Python float (to test the tests)
+    random.seed(42)
+    x = random.random()
+    assert x == 0.6394267984578837, "failed to initialize random() reproducibly"
+    assert get_remainder(x, 53) == 0
+    assert get_remainder(x, 52) != 0 # Note: this is only true for specific random seeds!
+    # fp:
+    random.seed(42)
+    x = fp.rand()
+    assert get_remainder(x, 53) == 0
+    assert get_remainder(x, 52) != 0 # Note: this is only true for specific random seeds!
+    # mp:
+    with workprec(123):
+        random.seed(43)
+        x = mpmath.mp.rand()
+        assert get_remainder(x, 123) == 0
+        assert get_remainder(x, 122) != 0  # Note: this is only true for specific random seeds!
+    # iv:
+    oldprec = iv.prec # REMOVE ME LATER - workaround for the bug that workprec doesn't work for iv
+    iv.prec=123 # REMOVE ME LATER - workaround for the bug that workprec doesn't work for iv
+    with workprec(123):
+        random.seed(43)
+        x = mpmath.iv.rand()
+        assert get_remainder(x, 123) == 0
+        assert get_remainder(x, 122) != 0  # Note: this is only true for specific random seeds!
+    iv.prec = oldprec # REMOVE ME LATER - workaround for the bug that workprec  doesn't work for iv
