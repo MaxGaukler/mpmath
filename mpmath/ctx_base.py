@@ -1,4 +1,5 @@
 from operator import gt, lt
+import random
 
 from .libmp.backend import xrange
 
@@ -454,6 +455,9 @@ class StandardBaseContext(Context,
                 raise ctx.NoConvergence("maxcalls: function evaluated %i times" % N)
             return f(*args, **kwargs)
         return f_maxcalls_wrapped
+
+    def rand(ctx):
+        return ctx.convert(random.random())
 
     def memoize(ctx, f):
         """
