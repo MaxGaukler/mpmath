@@ -669,8 +669,13 @@ class _matrix(object):
         return -self + other
 
     def __eq__(self, other):
-        return self.__rows == other.__rows and self.__cols == other.__cols \
-               and self.__data == other.__data
+        if other is None:
+            return False
+        try:
+            return self.__rows == other.__rows and self.__cols == other.__cols \
+                   and self.__data == other.__data
+        except AttributeError:
+            raise NotImplementedError("Unsupported type for testing equality: mpmath.matrix == " + str(type(other)))
 
     def __len__(self):
         if self.rows == 1:

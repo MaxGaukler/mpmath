@@ -7,6 +7,11 @@ def test_matrix_basic():
         A1[i,i] = 1
     assert A1 == eye(3)
     assert A1 == matrix(A1)
+    with pytest.raises(NotImplementedError):
+        A1 == 'hello'
+    with pytest.raises(NotImplementedError):
+        A1 == 42
+    assert not A1 == None
     A2 = matrix(3, 2)
     assert not A2._matrix__data
     A3 = matrix([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -174,7 +179,7 @@ def test_matrix_numpy():
     try:
         import numpy
     except ImportError:
-        return
+        pytest.skip("NumPy not installed")
     l = [[1, 2], [3, 4], [5, 6]]
     a = numpy.array(l)
     assert matrix(l) == matrix(a)
