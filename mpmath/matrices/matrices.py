@@ -662,6 +662,12 @@ class _matrix(object):
             raise ValueError('incompatible dimensions for subtraction')
         return self.__add__(other * (-1))
 
+    def __pos__(self):
+        """
+        +M returns a copy of M. This is consistent with -M.
+        """
+        return self.copy()
+
     def __neg__(self):
         return (-1) * self
 
