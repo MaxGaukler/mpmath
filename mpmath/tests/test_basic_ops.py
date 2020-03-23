@@ -481,4 +481,3 @@ def test_rand_precision():
         assert get_remainder(x, 123) == 0
         assert get_remainder(x, 122) != 0  # Note: this is only true for specific random seeds!
     iv.prec = oldprec # REMOVE ME LATER - workaround for the bug that workprec  doesn't work for iv
-
