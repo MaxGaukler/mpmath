@@ -1,5 +1,6 @@
 from .ctx_base import StandardBaseContext
 
+import random
 import math
 import cmath
 from . import math2
@@ -247,3 +248,7 @@ class FPContext(StandardBaseContext):
                     break
             k += 1
         return s
+
+    def rand(ctx):
+        # faster implementation, compatible to ctx_base.rand()
+        return ctx.convert(random.random())
