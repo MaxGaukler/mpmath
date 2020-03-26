@@ -1,5 +1,6 @@
 from .ctx_base import StandardBaseContext
 
+import random
 import math
 import cmath
 from . import math2
@@ -234,10 +235,6 @@ class FPContext(StandardBaseContext):
     def to_fixed(ctx, x, prec):
         return int(math.ldexp(x, prec))
 
-    def rand(ctx):
-        import random
-        return random.random()
-
     _erf = staticmethod(math2.erf)
     _erfc = staticmethod(math2.erfc)
 
@@ -251,3 +248,7 @@ class FPContext(StandardBaseContext):
                     break
             k += 1
         return s
+
+    def rand(ctx):
+        # faster implementation, compatible to ctx_base.rand()
+        return ctx.convert(random.random())
