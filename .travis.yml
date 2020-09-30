@@ -15,12 +15,8 @@ matrix:
       python: 3.8
     - arch: amd64
       python: pypy
-      before_install:
-        - pip install --upgrade --force-reinstall pip
     - arch: amd64
       python: pypy3
-      before_install:
-        - pip install --upgrade --force-reinstall pip
     - arch: arm64
       python: 2.7
       env: COVERAGE='on'
@@ -34,6 +30,7 @@ matrix:
       python: 3.6
       env: COVERAGE='on'
 install:
+  - pip install 'pip>=20.2.2'
   - pip install --use-feature=2020-resolver -U -e .[develop]
 script:
   # Guard against invalid escapes in strings, like '\s'.
