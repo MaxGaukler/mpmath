@@ -6,12 +6,12 @@ matrix:
       python: pypy
       before_install:
         # Workaround for dependency errors, probably due to https://github.com/z4r/python-coveralls/issues/66
-      - pip install --upgrade --force-reinstall pytest-cov pytest python-coveralls
+      - pip install --upgrade --force-reinstall pip
     - arch: amd64
       python: pypy3
       before_install:
         # Workaround for dependency errors, probably due to https://github.com/z4r/python-coveralls/issues/66
-        - pip install --upgrade --force-reinstall pytest-cov pytest python-coveralls
+        - pip install --upgrade --force-reinstall pip
 install:
   - pip install -U -e .[develop]
 script:
