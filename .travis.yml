@@ -1,12 +1,38 @@
-dist: focal
 language: python
 matrix:
-# When changing the supported python versions, please keep the README, .travis-ci.yml and setup.cfg in sync!
   include:
+    - arch: arm64
+      python: 2.7
+    - arch: amd64
+      python: 2.7
+    - arch: arm64
+      python: 3.7
+    - arch: amd64
+      python: 3.7
+    - arch: arm64
+      python: 3.8
+    - arch: amd64
+      python: 3.8
     - arch: amd64
       python: pypy
+      before_install:
+        - pip install --upgrade --force-reinstall pip
     - arch: amd64
       python: pypy3
+      before_install:
+        - pip install --upgrade --force-reinstall pip
+    - arch: arm64
+      python: 2.7
+      env: COVERAGE='on'
+    - arch: amd64
+      python: 2.7
+      env: COVERAGE='on'
+    - arch: arm64
+      python: 3.6
+      env: COVERAGE='on'
+    - arch: amd64
+      python: 3.6
+      env: COVERAGE='on'
 install:
   - pip install --use-feature=2020-resolver -U -e .[develop]
 script:
