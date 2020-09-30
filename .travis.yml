@@ -1,17 +1,12 @@
+dist: focal
 language: python
 matrix:
 # When changing the supported python versions, please keep the README, .travis-ci.yml and setup.cfg in sync!
   include:
     - arch: amd64
       python: pypy
-      before_install:
-        # Workaround because old pip is too stupid to correctly resolve dependencies
-      - pip install --upgrade --force-reinstall pip
     - arch: amd64
       python: pypy3
-      before_install:
-        # Workaround because old pip is too stupid to correctly resolve dependencies
-        - pip install --upgrade --force-reinstall pip
 install:
   - pip install --use-feature=2020-resolver -U -e .[develop]
 script:
